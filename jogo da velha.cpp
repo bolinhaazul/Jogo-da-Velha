@@ -74,7 +74,7 @@ void jogada(int tabuleiro[][3], int jogador) // faz a jogada
     {
         tabuleiro[linha][coluna] = 1;
     }
-    else // se for o jogador 2
+    else if(jogador==1) // se for o jogador 2
     {
         tabuleiro[linha][coluna] = -1;
     }
@@ -94,10 +94,12 @@ int vitoria(int tabuleiro[][3])//verifica se alguém venceu
     /* verificando as linhas */
     for(linha=0;linha<3;linha++)//percorre as linhas
     {
+        verif=0;
+        for(coluna=0;coluna<3;coluna++)//percorre as colunas
         verif+=tabuleiro[linha][coluna];
-        if(verif==3) // se todas as colunas da linha tiverem o mesmo valor, o jogador 1 venceu
+        if(verif==3)
             return 1;
-        if(verif==-3) // se todas as colunas da linha tiverem o mesmo valor, o jogador 2 venceu
+        else if(verif==-3)
             return -1;
     }
     /* verificando as colunas */
@@ -115,9 +117,9 @@ int vitoria(int tabuleiro[][3])//verifica se alguém venceu
     verif=0;
     for(linha=0;linha<3;linha++) 
         verif+=tabuleiro[linha][linha]; // soma os valores das diagonais
-    if(verif==3) // se todas as colunas da linha tiverem o mesmo valor, o jogador 1 venceu
+    if(verif==3) // se a soma da diagonal for 3, o jogador 1 venceu
         return 1;
-    if(verif==-3) // se todas as colunas da linha tiverem o mesmo valor, o jogador 2 venceu
+    if(verif==-3) // se a soma da diagonal for -3, o jogador 2 venceu
         return -1;
         return 0;
 }
@@ -141,7 +143,7 @@ int jogo(int tabuleiro[][3])//roda o jogo
         if(vence==-1)//verifica se o jogador 2 venceu
         {
             cout<<"Jogador 2 venceu!\n"<<endl;
-            return -1;
+            return 2;
         }
     else
         cout<<"Nao ha vencedores!\n"<<endl;
@@ -151,7 +153,7 @@ void placar(int resultado, int &jogador1, int &jogador2)
 { /* atualiza o placar */
     if(resultado==1)
         jogador1++;
-    else
+    else if(resultado==2)
         jogador2++;
     
     cout<<"Placar: "<<endl;
